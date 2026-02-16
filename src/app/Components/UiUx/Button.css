@@ -1,0 +1,85 @@
+:root {
+  --border: 4px;
+  --radius: 75vh;
+}
+
+
+
+.body_sadfasdf {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cus_button {
+  padding: 20px 75px 12px;
+  font-family: monospace;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.cus_button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1/1;
+  width: 150%;
+  height: auto;
+  border-radius: 50%;
+  background: conic-gradient(#ffffff00 0%, #0e650e00 3%, #0383a79b 60%, #0068a4 100%);
+  animation: spin linear 5s infinite;
+  transform: translate(-50%, -50%);
+}
+
+.cus_button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% - var(--border));
+  height: calc(100% - var(--border));
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  backdrop-filter: blur(10vh);
+}
+
+.cus_button span {
+  display: block;
+  position: relative;
+  text-wrap: nowrap;
+  z-index: 1;
+  font-family: "Geo", monospace;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0% {
+    border: 0 transparent solid;
+  }
+  25% {
+    border: 15px #4094 solid;
+  }
+  50% {
+    border: 30px transparent solid;
+  }
+  100% {
+    border: 0 transparent solid;
+  }
+}

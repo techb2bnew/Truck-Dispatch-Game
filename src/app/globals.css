@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --secondary : #279600
+}
+
+@theme  {
+  --color-primary : #FFC700 ;
+  --color-secondary : #279600;
+}
+
+
+.bg-gradient-green {
+  background: linear-gradient(0deg,rgba(39, 150, 0, 1) 0%, rgba(14, 101, 14, 1) 100%);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+    font-family: var(--font-poppins), sans-serif;
+}
+
+.family-primary {
+    font-family: var(--font-lalezar), sans-serif;
+}
+
+.gradient-shadow::before {
+  content: "";
+  height: 20px;
+  width: var(--shadow-width);
+  filter: blur(7px);
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #02002400, #00d4ff29, #00d4ff);
+  position: absolute;
+  inset: -14px 0 0;
+}
