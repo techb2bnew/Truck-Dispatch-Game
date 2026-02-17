@@ -1,28 +1,26 @@
-// import React from 'react'
-// import './Button.css'
-// const Button = ({bg_color, text_color}) => {
-//   return (
-//     <div className='body_sadfasdf'>
-//          <button className={`cus_button ${bg_color} after:${bg_color} ${text_color}`}>
-//          <span>ABOUT GAME</span>
-//      </button>
-//     </div>
-//   )
-// }
+"use client";
+import React from "react";
 
-// export default Button
+const Button = ({ bg_color, text_color, btn_name, onclick }) => {
 
+  const handleClick = () => {
+    const audio = new Audio("/audio/btnclikeffact.mp3");
+    audio.play();
 
-import React from 'react'
+    onclick && onclick();
+  };
 
-const Button = ({bg_color, text_color, btn_name, onclick}) => {
   return (
-    <div className='w-fit border-2 border-[#ffffff5a]' onClick={onclick}>
-      <button className={`${bg_color} ${text_color}  uppercase px-10 pt-5 pb-3 text-[26px] m-px tracking-[5px] cursor-pointer`}>
+    <div className="w-fit border-2 border-[#ffffff5a]">
+      <button
+        onClick={handleClick}
+        type="button"
+        className={`${bg_color} ${text_color} uppercase px-10 pt-5 pb-3 text-[26px] m-px tracking-[5px] cursor-pointer`}
+      >
         {btn_name}
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

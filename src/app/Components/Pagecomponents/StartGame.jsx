@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import BackBtn from "../UiUx/BackBtn";
-import Button from "../UiUx/Button";
 import { InputComponent } from "./InputComponent";
 import UnlockLevels from "./UnlockLevels";
 import SelectTruck from "./SelectTruck";
+import YourBass from "./YourBass";
+import SearchLoad from "./SearchLoad";
 
 const StartGame = ({ setCurrentComponent }) => {
   const [currentContinew, setCurrentcontinew] = useState("Your_name");
@@ -32,7 +33,9 @@ const StartGame = ({ setCurrentComponent }) => {
     Your_name: () => setCurrentComponent("Home"),
     Your_id: () => setCurrentcontinew("Your_name"),
     Unlock_Levels: () => setCurrentcontinew("Your_id"),
-    Select_Truck : () => setCurrentcontinew("Unlock_Levels")
+    Select_Truck : () => setCurrentcontinew("Unlock_Levels"),
+    Choose_state : () => setCurrentcontinew("Select_Truck"),
+    Search_load : () => setCurrentcontinew("Choose_state")
   };
 
   return (
@@ -43,7 +46,7 @@ const StartGame = ({ setCurrentComponent }) => {
             <BackBtn />
           </div>}
 
-        <div className="pt-12">
+        <div className={`${currentContinew === "Choose_state" || currentContinew === "Search_load" ? 'pt-2' : 'pt-12'} `}>
           {currentContinew === "Your_name" || currentContinew === "Your_id"
             ? <InputComponent
               setcontinew={currentContinew}
@@ -54,8 +57,11 @@ const StartGame = ({ setCurrentComponent }) => {
               continew2={() => setCurrentcontinew("Unlock_Levels")}
             />
             : currentContinew === "Unlock_Levels" ? <UnlockLevels onclick={() => setCurrentcontinew("Select_Truck")} /> 
-            : currentContinew === "Select_Truck" ? <SelectTruck /> 
+            : currentContinew === "Select_Truck" ? <SelectTruck onclick={()=> setCurrentcontinew("Choose_state")}/> 
+            : currentContinew === "Choose_state" ? <YourBass onclick={()=> setCurrentcontinew("Search_load")}/> 
+            : currentContinew === "Search_load" ? <SearchLoad />
             : null}
+            
         </div>
       </div>
     </div>

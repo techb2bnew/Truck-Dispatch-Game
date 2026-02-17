@@ -3,12 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --secondary : #279600
+  --secondary : #279600;
+  --ternary : #0048DC
 }
 
 @theme  {
   --color-primary : #FFC700 ;
   --color-secondary : #279600;
+  --color-ternary :  #0048DC
 }
 
 
@@ -36,4 +38,10 @@ body {
   background: linear-gradient(90deg, #02002400, #00d4ff29, #00d4ff);
   position: absolute;
   inset: -14px 0 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
 }
