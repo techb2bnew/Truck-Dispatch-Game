@@ -14,13 +14,13 @@ const levelsdata = [
     id: 2,
     level_icon: "/icons/level1icon.svg",
     start_got: 3,
-    level_achive: true
+    level_achive: false
   },
   {
     id: 3,
     level_icon: "/icons/level1icon.svg",
     start_got: 3,
-    level_achive: true
+    level_achive: false
   },
   {
     id: 4,

@@ -35,16 +35,16 @@ const YourBass = ({ onclick }) => {
                 </div>
               )}
             </div>
+            <div className="pt-5 flex justify-start">
+              <Button
+                onclick={onclick}
+                btn_name={"continue"}
+                bg_color={"bg-gradient-green"}
+                text_color={"text-primary"}
+              />
+            </div>
           </div>
           <ChooseStateMap />
-        </div>
-        <div className="pt-5 flex justify-center">
-          <Button
-            onclick={onclick}
-            btn_name={"continue"}
-            bg_color={"bg-gradient-green"}
-            text_color={"text-primary"}
-          />
         </div>
       </div>
     </div>

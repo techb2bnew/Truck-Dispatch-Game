@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { CiCalendar, CiSearch } from "react-icons/ci";
 
-const SearchLoad = () => {
+const SearchLoad = ({onclick}) => {
   const [form, setForm] = useState({
     origin: "",
     dhO: "",
@@ -21,6 +21,7 @@ const SearchLoad = () => {
 
   const handleSearch = () => {
     console.log("Search Data:", form);
+    onclick()
   };
 
   const today = new Date().toISOString().split("T")[0];
@@ -28,7 +29,7 @@ const SearchLoad = () => {
   const endRef = useRef(null);
 
   const openStartDate = () => {
-    startRef.current?.showPicker?.(); // modern browsers
+    startRef.current?.showPicker?.(); 
     startRef.current?.focus();
   };
 

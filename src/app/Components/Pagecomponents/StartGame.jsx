@@ -1,16 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackBtn from "../UiUx/BackBtn";
 import { InputComponent } from "./InputComponent";
 import UnlockLevels from "./UnlockLevels";
 import SelectTruck from "./SelectTruck";
 import YourBass from "./YourBass";
 import SearchLoad from "./SearchLoad";
+import QAfirst from "./QAfirst";
+import QueAnsSet1 from "./QueAnsSet1";
+import StartJourney from "./StartJourney";
+import IntroLoader from "../IntroLoader";
 
 const StartGame = ({ setCurrentComponent }) => {
   const [currentContinew, setCurrentcontinew] = useState("Your_name");
   const [name, setname] = useState("");
   const [userId, setUserId] = useState("");
+  const [hideBackBtn, setHideBackBtn] = useState(false);
   const generateUniqueId = name => {
     const now = new Date();
     const year = now.getFullYear();
@@ -33,20 +38,43 @@ const StartGame = ({ setCurrentComponent }) => {
     Your_name: () => setCurrentComponent("Home"),
     Your_id: () => setCurrentcontinew("Your_name"),
     Unlock_Levels: () => setCurrentcontinew("Your_id"),
-    Select_Truck : () => setCurrentcontinew("Unlock_Levels"),
-    Choose_state : () => setCurrentcontinew("Select_Truck"),
-    Search_load : () => setCurrentcontinew("Choose_state")
+    Select_Truck: () => setCurrentcontinew("Unlock_Levels"),
+    Choose_state: () => setCurrentcontinew("Select_Truck"),
+    Search_load: () => setCurrentcontinew("Choose_state"),
+    QA_first: () => setCurrentcontinew("Search_load"),
+    Que_Ans_Set1: () => setCurrentcontinew("QA_first"),
+    Start_journey : () => setCurrentcontinew('Que_Ans_Set1')
   };
+  let currentbg =
+    currentContinew === "Que_Ans_Set1"
+      ? "/Banners/questionansbanner.webp"
+      : currentContinew === 'Start_journey' 
+      ? '/Banners/start-journey.webp'
+      : "/Banners/Loadingbanner.webp";
+  useEffect(() => {
+    if (currentContinew === "Start_journey") {
+      setHideBackBtn(true);
 
+      const timer = setTimeout(() => {
+        setHideBackBtn(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentContinew]);
   return (
-    <div className="bg-[url(/Banners/Loadingbanner.webp)] bg-contain bg-center h-screen"> 
-      <div className="p-10">
-        {backActions[currentContinew] &&
+    <div
+      className={`bg-contain bg-center h-screen fixed overflow-hidden w-full`}
+      style={{ backgroundImage: `url(${currentbg})` }}
+    >
+      <div className={`${hideBackBtn ? '' : 'p-10'}`}>
+        {backActions[currentContinew] && !hideBackBtn && (
           <div onClick={backActions[currentContinew]}>
             <BackBtn />
-          </div>}
+          </div>
+        )}
 
-        <div className={`${currentContinew === "Choose_state" || currentContinew === "Search_load" ? 'pt-2' : 'pt-12'} `}>
+        <div className={`${currentContinew === "Choose_state" || currentContinew === "Search_load" || hideBackBtn ? 'pt-2' : 'pt-12'} `}>
           {currentContinew === "Your_name" || currentContinew === "Your_id"
             ? <InputComponent
               setcontinew={currentContinew}
@@ -56,12 +84,15 @@ const StartGame = ({ setCurrentComponent }) => {
               handleContinue={handleContinue}
               continew2={() => setCurrentcontinew("Unlock_Levels")}
             />
-            : currentContinew === "Unlock_Levels" ? <UnlockLevels onclick={() => setCurrentcontinew("Select_Truck")} /> 
-            : currentContinew === "Select_Truck" ? <SelectTruck onclick={()=> setCurrentcontinew("Choose_state")}/> 
-            : currentContinew === "Choose_state" ? <YourBass onclick={()=> setCurrentcontinew("Search_load")}/> 
-            : currentContinew === "Search_load" ? <SearchLoad />
+            : currentContinew === "Unlock_Levels" ? <UnlockLevels onclick={() => setCurrentcontinew("Select_Truck")} />
+            : currentContinew === "Select_Truck" ? <SelectTruck onclick={() => setCurrentcontinew("Choose_state")} />
+            : currentContinew === "Choose_state" ? <YourBass onclick={() => setCurrentcontinew("Search_load")} />
+            : currentContinew === "Search_load" ? <SearchLoad onclick={() => setCurrentcontinew("QA_first")} />
+            : currentContinew === "QA_first" ? <QAfirst onclick={() => setCurrentcontinew("Que_Ans_Set1")} />
+            : currentContinew === "Que_Ans_Set1" ? <QueAnsSet1 onclick={() => setCurrentcontinew("Start_journey")} />
+            // : currentContinew === "Start_journey" ? <IntroLoader><StartJourney /></IntroLoader>
             : null}
-            
+
         </div>
       </div>
     </div>
