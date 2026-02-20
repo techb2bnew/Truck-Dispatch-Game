@@ -10,6 +10,8 @@ import QAfirst from "./QAfirst";
 import QueAnsSet1 from "./QueAnsSet1";
 import StartJourney from "./StartJourney";
 import IntroLoader from "../IntroLoader";
+import Profile from "./Profile";
+import BiddingForLoads from "./BiddingForLoads";
 
 const StartGame = ({ setCurrentComponent }) => {
   const [currentContinew, setCurrentcontinew] = useState("Your_name");
@@ -41,7 +43,8 @@ const StartGame = ({ setCurrentComponent }) => {
     Select_Truck: () => setCurrentcontinew("Unlock_Levels"),
     Choose_state: () => setCurrentcontinew("Select_Truck"),
     Search_load: () => setCurrentcontinew("Choose_state"),
-    QA_first: () => setCurrentcontinew("Search_load"),
+    Bidding_ForLoads : ()=> setCurrentcontinew('Search_load'),
+    QA_first: () => setCurrentcontinew("Bidding_ForLoads"),
     Que_Ans_Set1: () => setCurrentcontinew("QA_first"),
     Start_journey : () => setCurrentcontinew('Que_Ans_Set1')
   };
@@ -50,6 +53,8 @@ const StartGame = ({ setCurrentComponent }) => {
       ? "/Banners/questionansbanner.webp"
       : currentContinew === 'Start_journey' 
       ? '/Banners/start-journey.webp'
+      : currentContinew === 'User_Profile' 
+      ? '/Banners/black-bg.webp'
       : "/Banners/Loadingbanner.webp";
   useEffect(() => {
     if (currentContinew === "Start_journey") {
@@ -57,7 +62,7 @@ const StartGame = ({ setCurrentComponent }) => {
 
       const timer = setTimeout(() => {
         setHideBackBtn(false);
-      }, 3000);
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
@@ -67,14 +72,14 @@ const StartGame = ({ setCurrentComponent }) => {
       className={`bg-contain bg-center h-screen fixed overflow-hidden w-full`}
       style={{ backgroundImage: `url(${currentbg})` }}
     >
-      <div className={`${hideBackBtn ? '' : 'p-10'}`}>
+      <div className={`${hideBackBtn || currentContinew === 'User_Profile' ? '' : 'p-10'}`}>
         {backActions[currentContinew] && !hideBackBtn && (
           <div onClick={backActions[currentContinew]}>
             <BackBtn />
           </div>
         )}
 
-        <div className={`${currentContinew === "Choose_state" || currentContinew === "Search_load" || hideBackBtn ? 'pt-2' : 'pt-12'} `}>
+        <div className={`${currentContinew === "Choose_state" || currentContinew === 'Bidding_ForLoads' || currentContinew === "Search_load" || currentContinew === 'User_Profile' || hideBackBtn ? 'pt-2' : 'pt-12'} `}>
           {currentContinew === "Your_name" || currentContinew === "Your_id"
             ? <InputComponent
               setcontinew={currentContinew}
@@ -87,10 +92,12 @@ const StartGame = ({ setCurrentComponent }) => {
             : currentContinew === "Unlock_Levels" ? <UnlockLevels onclick={() => setCurrentcontinew("Select_Truck")} />
             : currentContinew === "Select_Truck" ? <SelectTruck onclick={() => setCurrentcontinew("Choose_state")} />
             : currentContinew === "Choose_state" ? <YourBass onclick={() => setCurrentcontinew("Search_load")} />
-            : currentContinew === "Search_load" ? <SearchLoad onclick={() => setCurrentcontinew("QA_first")} />
+            : currentContinew === "Search_load" ? <SearchLoad onclick={() => setCurrentcontinew("Bidding_ForLoads")} />
+            : currentContinew === "Bidding_ForLoads" ? <BiddingForLoads onclick={() => setCurrentcontinew("QA_first")} />
             : currentContinew === "QA_first" ? <QAfirst onclick={() => setCurrentcontinew("Que_Ans_Set1")} />
             : currentContinew === "Que_Ans_Set1" ? <QueAnsSet1 onclick={() => setCurrentcontinew("Start_journey")} />
-            // : currentContinew === "Start_journey" ? <IntroLoader><StartJourney /></IntroLoader>
+            : currentContinew === "Start_journey" ? <IntroLoader><StartJourney setCurrentcontinew={setCurrentcontinew} /></IntroLoader>
+            : currentContinew === "User_Profile" ? <Profile />
             : null}
 
         </div>

@@ -1,6 +1,10 @@
 import React from 'react'
 
-const StartJourney = () => {
+const StartJourney = ({setCurrentcontinew}) => {
+
+  setTimeout(() => {
+     setCurrentcontinew('User_Profile')
+  }, 3000);
   return (
     <div className='h-[65vh] flex justify-center items-center'>
        <div className='text-center'>
